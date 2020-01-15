@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import axios from "axios";
+import { FollowerList } from "./components/FollowerList.js";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  // The constructor and super are still running under the hood
+  // must use arrow functions though!!
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     githubUser: ""
+  //   };
+  // }
+
+  state = {
+    user: "",
+    name: "",
+    github: ""
+  };
+
+  componentDidMount() {
+    axios
+      .get("https://api.github.com/users/hayesdev")
+      .then(res => {
+        //res.data.login
+        const person = res.data;
+        this.setState({
+          user: person.login,
+          name: person.name,
+          github: person.url
+        });
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+  }
+
+  render() {
+    // import different component carrying state from followers api
+    return (
+      <div className="App">
+        <h1>GitHub Users</h1>
+        <div className="user">
+          <h2>Name: {this.state.name}</h2>
+          <h2>
+            Handle: <a href={this.state.github}> {this.state.user}</a>
+          </h2>
+          <FollowerList />
+        </div>
+      </div>
+    );
+  }
 }
-
 export default App;

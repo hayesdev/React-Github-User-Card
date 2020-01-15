@@ -39,12 +39,13 @@ class App extends React.Component {
     // import different component carrying state from followers api
     return (
       <div className="App">
-        <h1>GitHub Users</h1>
+        <h1>GitHub Usercard</h1>
         <div className="user">
           <h2>Name: {this.state.name}</h2>
           <h2>
-            Handle: <a href={this.state.github}> {this.state.user}</a>
+            Handle: <a href={this.state.user}> {this.state.user}</a>
           </h2>
+          <h2>Followers: </h2>
           <FollowerList />
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import Axios from "axios";
+import { UserCard } from "./UserCard";
 
 export class FollowerList extends React.Component {
   state = {
@@ -22,11 +23,8 @@ export class FollowerList extends React.Component {
   render() {
     return (
       <div>
-        <h2>Followers</h2>
-        {this.state.followers.map(props => (
-          <h3 key={props.login}>
-            <a href="#">{props.login}</a>
-          </h3>
+        {this.state.followers.map(res => (
+          <UserCard key={res.id} username={res.login} />
         ))}
       </div>
     );
